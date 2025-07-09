@@ -8,9 +8,11 @@
 - ✅ **Transcripción automática** de archivos multimedia
 - ✅ **Chat inteligente** con IA para análisis del contenido
 - ✅ **Soporte múltiples formatos** (.mp4, .mp3, .wav, .ogg)
-- ✅ **Interfaz moderna** con formato Markdown
+- ✅ **Interfaz moderna** con formato Markdown enriquecido (soporta negrita, cursiva, listas, encabezados, código, enlaces)
 - ✅ **Procesamiento por segmentos** para archivos largos
 - ✅ **Exportación de resultados** en archivos de texto
+- ✅ **Selección de modelo IA**: puedes escribir el nombre de cualquier modelo soportado por [GROQ](https://console.groq.com/docs/models)
+- ✅ **Configuración persistente**: la API Key y el modelo IA se guardan y cargan automáticamente
 
 ---
 
@@ -49,9 +51,16 @@
 La aplicación se divide en **4 secciones principales**:
 
 1. **Panel Superior**: Controles para seleccionar archivos y transcribir
-2. **Panel Izquierdo**: Chat con IA (modo conversacional)
+2. **Panel Izquierdo**: Chat con IA (modo conversacional, con soporte Markdown avanzado)
 3. **Panel Derecho**: Registro de transcripción y progreso
 4. **Panel Inferior**: Información del desarrollador
+
+### Configuración de API Key y Modelo IA
+
+- En la parte superior, ingresa tu **API Key de GROQ** (debe comenzar con `gsk_`).
+- En el campo **Modelo IA**, escribe el nombre del modelo que deseas usar (ejemplo sugerido: `llama3-8b-8192`). Puedes consultar la lista de modelos disponibles en [https://console.groq.com/docs/models](https://console.groq.com/docs/models).
+- Haz clic en **"🔧 Configurar API"** para guardar y activar la configuración.
+- La configuración (API Key y modelo) se guarda automáticamente y se carga al iniciar la aplicación.
 
 ### Proceso de Transcripción
 
@@ -77,15 +86,16 @@ La aplicación se divide en **4 secciones principales**:
 ### Chat con IA
 
 #### Funcionalidades del chat:
-- **Resumen automático**: Tras completar la transcripción, la IA genera un resumen
-- **Conversación libre**: Puedes hacer preguntas sobre el contenido
-- **Formato Markdown**: Las respuestas incluyen formato rico (negrita, cursiva, listas, etc.)
+- **Resumen automático**: Tras completar la transcripción, la IA genera un resumen estructurado y claro usando Markdown
+- **Conversación libre**: Puedes hacer preguntas sobre el contenido o cualquier otro tema
+- **Formato Markdown avanzado**: Las respuestas incluyen formato enriquecido (negrita, cursiva, listas, encabezados, código, enlaces, etc.)
 - **Memoria conversacional**: Recuerda los últimos 5 mensajes
 
 #### Cómo usar el chat:
-1. **Automático**: Después de transcribir, recibirás un resumen automático
-2. **Manual**: Escribe preguntas en el campo de texto inferior
+1. **Automático**: Después de transcribir, recibirás un resumen automático en el chat
+2. **Manual**: Escribe preguntas en el campo de texto inferior (placeholder: "Escribe tu mensaje y presiona Enter...")
 3. **Enviar**: Presiona Enter o haz clic en **"➤ Enviar"**
+4. **Soporte Markdown**: Puedes escribir usando Markdown básico y la IA responderá también en Markdown
 
 #### Ejemplos de preguntas:
 - "Resume los puntos principales"
@@ -105,6 +115,9 @@ La aplicación crea los siguientes archivos en el directorio actual:
 
 ### Archivos temporales:
 - **`segment_X_Y.wav`**: Fragmentos temporales del audio (se eliminan automáticamente)
+
+### Archivo de configuración:
+- **`.transcriptor_config.json`**: Guarda la API Key (codificada) y el modelo IA seleccionado en la carpeta de usuario
 
 ---
 
@@ -130,24 +143,24 @@ La aplicación crea los siguientes archivos en el directorio actual:
 ### Problemas comunes:
 
 #### Error: "No se puede transcribir"
-**Causa**: Problemas de conexión a Internet
+**Causa**: Problemas de conexión a Internet  
 **Solución**: Verifica tu conexión y vuelve a intentar
 
 #### Error: "Error al inicializar modelo de chat"
-**Causa**: API Key de Groq inválida o faltante
-**Solución**: Configura correctamente la API Key
+**Causa**: API Key de Groq inválida o faltante, o modelo IA incorrecto  
+**Solución**: Configura correctamente la API Key y revisa el nombre del modelo (consulta [modelos disponibles](https://console.groq.com/docs/models))
 
 #### Error: "Formato no soportado"
-**Causa**: Archivo en formato no compatible
+**Causa**: Archivo en formato no compatible  
 **Solución**: Convierte el archivo a .mp4, .mp3, .wav o .ogg
 
 #### La transcripción está incompleta
-**Causa**: Audio de baja calidad o ruido de fondo
+**Causa**: Audio de baja calidad o ruido de fondo  
 **Solución**: Usa archivos de audio más claros
 
 #### El chat no responde
-**Causa**: Límites de API agotados o problemas de red
-**Solución**: Espera un tiempo o verifica la conexión
+**Causa**: Límites de API agotados, modelo incorrecto o problemas de red  
+**Solución**: Espera un tiempo, verifica la conexión y revisa el modelo IA
 
 ---
 
@@ -178,14 +191,15 @@ Si quieres modificar el código fuente:
 pip install -r requirements.txt
 ```
 
-2. **Configura tu API Key**:
+2. **Configura tu API Key y modelo IA**:
+Puedes hacerlo desde la interfaz gráfica o manualmente en el archivo 
 ```python
-os.environ["GROQ_API_KEY"] = "tu_clave_api_aqui"
+.transcriptor_config.json
 ```
 
 3. **Ejecuta el script**:
 ```bash
-python main.py
+python ProduccionV2.py
 ```
 
 ---
@@ -219,10 +233,11 @@ Este software es de código abierto y está disponible bajo los términos especi
 
 ### Versión Actual
 - ✅ Transcripción automática de múltiples formatos
-- ✅ Chat conversacional con IA
+- ✅ Chat conversacional con IA (Markdown)
 - ✅ Interfaz moderna con Markdown
 - ✅ Procesamiento por segmentos
 - ✅ Exportación de resultados
+- ✅ Selección y guardado de modelo IA
 
 ---
 
